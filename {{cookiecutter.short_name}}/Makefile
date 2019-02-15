@@ -36,7 +36,7 @@ quality_csslint: $(css_files)  ## Run the csslint checks
 	csslint {{cookiecutter.short_name}}/
 
 quality_eslint:  ## Run the eslint checks
-	eslint {{cookiecutter.short_name}}/
+	eslint --fix {{cookiecutter.short_name}}/
 
 quality_pycodestyle:  ## Run the pycodestyle checks
 	tox -e pycodestyle
