@@ -6,9 +6,7 @@ parserOptions:
 rules:
   array-bracket-spacing: error
   array-callback-return: error
-  arrow-body-style:
-    - error
-    - 'as-needed'
+  arrow-body-style: 0
   arrow-parens:
     - error
     - 'as-needed'
@@ -191,7 +189,7 @@ rules:
   no-useless-return: error
   no-whitespace-before-property: error
   no-with: error
-  no-var: error
+  no-var: 0
   object-curly-newline:
     - error
     - consistent: true
@@ -207,12 +205,11 @@ rules:
   operator-assignment: error
   operator-linebreak: error
   padding-line-between-statements:
-    - error,
+    - error
     - blankLine: always
       prev:
         - const
         - let
-        - var
       next: '*'
     - blankLine: any
       prev:
@@ -223,7 +220,7 @@ rules:
         - const
         - let
         - var
-  prefer-arrow-callback: error
+  prefer-arrow-callback: 0
   prefer-const: error
   prefer-numeric-literals: error
   prefer-promise-reject-errors: error
