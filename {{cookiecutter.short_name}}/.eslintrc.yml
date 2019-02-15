@@ -263,7 +263,7 @@ rules:
       - '-'
   strict:
     - error
-    - global
+    - function
   switch-colon-spacing: error
   symbol-description: error
   template-curly-spacing:
