@@ -27,7 +27,9 @@ rules:
      - callback
      - next
   class-methods-use-this: error
-  comma-dangle: error
+  comma-dangle:
+    - error
+    - always
   comma-spacing: error
   comma-style:
     - error
