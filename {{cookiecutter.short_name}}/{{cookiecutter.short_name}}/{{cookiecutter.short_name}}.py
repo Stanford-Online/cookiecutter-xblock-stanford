@@ -49,7 +49,6 @@ class {{cookiecutter.class_name}}(XBlock):
         """
         # Just to show data coming in...
         assert data['hello'] == 'world'
-
         self.count += 1
         return {"count": self.count}
 
