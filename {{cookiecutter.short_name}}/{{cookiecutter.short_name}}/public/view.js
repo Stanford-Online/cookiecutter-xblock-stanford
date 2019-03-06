@@ -17,20 +17,25 @@ function {{cookiecutter.class_name}}(runtime, element) {
      * @returns {undefined} nothing
      */
     function updateCount(result) {
+        // TODO: Replace this with your own UI logic
         $('.count', element).text(result.count);
     }
 
+    // TODO: Replace this with your own handler url
     var handlerUrl = runtime.handlerUrl(element, 'increment_count');
 
     /* eslint-disable no-unused-vars */
     $('p', element).click(function (eventObject) {
+        // TODO: Replace this with your own click handler
         /* eslint-enable no-unused-vars */
         $.ajax({
             type: 'POST',
             url: handlerUrl,
             data: JSON.stringify({
+                // TODO: Replace this with your own data payload
                 'hello': 'world',
             }),
+            // TODO: Replace this with your own callback
             success: updateCount,
         });
     });
