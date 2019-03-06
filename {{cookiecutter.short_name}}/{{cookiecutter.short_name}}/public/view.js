@@ -22,7 +22,6 @@ function {{cookiecutter.class_name}}(runtime, element) {
 
     var handlerUrl = runtime.handlerUrl(element, 'increment_count');
 
-no-unused-vars
     /* eslint-disable no-unused-vars */
     $('p', element).click(function (eventObject) {
         /* eslint-enable no-unused-vars */
