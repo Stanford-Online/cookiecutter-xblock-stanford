@@ -1,5 +1,6 @@
 #!/usr/bin/make -f
 css_files := $(patsubst %.less, %.less.css, $(wildcard ./{{cookiecutter.short_name}}/public/*.less))
+sdk_root := ../sdk
 
 .PHONY: help
 help:  ## This.
@@ -7,11 +8,9 @@ help:  ## This.
 	| sort \
 	| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-all:  ## Run all quality checks and unit tests
-	tox
-
-clean:  ## Remove all build artifacts
-	deactivate
+.PHONY: clean
+clean:  ## Remove build artifacts
+	deactivate || true
 	rm -rf venv/
 	rm -rf .tox/
 	find . -name '*.pyc'
@@ -19,40 +18,44 @@ clean:  ## Remove all build artifacts
 	rm -rf .eggs/
 	rm -rf reports/
 
-destroy:  ## Destroy the vagrant box and cleanup the directory
-	vagrant destroy -f
-
-{{cookiecutter.short_name}}/public/%.css: {{cookiecutter.short_name}}/public/%  ## Compile the less->css
+.PHONY: static
+static: $(css_files)  ## Compile the less->css
+{{cookiecutter.short_name}}/public/%.css: {{cookiecutter.short_name}}/public/%
 	@echo "$< -> $@"
-	lessc $< $@
+	node_modules/less/bin/lessc $< $@
 
-quality:  ## Run all quality checks
-	make quality_csslint
-	make quality_eslint
-	make quality_pycodestyle
-	make quality_pylint
-
-quality_csslint: $(css_files)  ## Run the csslint checks
-	csslint {{cookiecutter.short_name}}/
-
-quality_eslint:  ## Run the eslint checks
-	eslint --fix {{cookiecutter.short_name}}/
-
-quality_pycodestyle:  ## Run the pycodestyle checks
-	tox -e pycodestyle
-
-quality_pylint:  ## Run the pylint checks
-	tox -e pylint
-
+.PHONY: requirements
 requirements:  # Install required packages
 	pip install tox
-	npm install -g eslint
-	npm install -g less
-	npm install -g csslint
+	npm install
 
-run:  ## Run the workbench server w/ this XBlock installed
+.PHONY: run
+# This target is intentionally hidden from the help menu,
+# as it shouldn't be invoked directly.
+run:  # Run the workbench server w/ this XBlock installed
+	cd $(sdk_root) && pip install -r requirements/base.txt
+	pip install -e .
+	cd $(sdk_root) && python manage.py migrate
+	cd $(sdk_root) && python manage.py runserver 0.0.0.0:8000
+
+.PHONY: test
+test: requirements  ## Run all quality checks and unit tests
+	tox
+
+.PHONY: vagrant_clean
+vagrant_clean: vagrant_halt clean  ## Remove build artifacts (and destroy vagrant VM)
+	vagrant destroy -f
+
+.PHONY: vagrant_halt
+vagrant_halt:  ## Stop running vagrant VM vagrant halt
+	vagrant halt
+
+define run-in-vagrant
 	vagrant up
-	vagrant ssh -c 'cd /home/vagrant/sdk/ && /home/vagrant/venv/bin/python ./manage.py runserver 0.0.0.0:8000'
+	vagrant ssh -c ". /home/vagrant/venv/bin/activate && make -C /home/vagrant/xblock/ $(patsubst vagrant_%, %, $@)"
+endef
 
-test:  ## Run the library test suite
-	tox -e py27
+.PHONY: vagrant_run vagrant_static vagrant_test
+vagrant_run: ; $(run-in-vagrant)  ## Run server inside vagrant VM
+vagrant_static: ; $(run-in-vagrant)  ## Compile assets inside vagrant VM
+vagrant_test: ; $(run-in-vagrant)  ## Run tests inside vagrant VM
