@@ -14,4 +14,4 @@ assignees: ''
 - [ ] Code Reviewer 1
 - [ ] Code Reviewer 2
 - [ ] Does this need uploaded to PyPi?
-- [ ] Do we need a PR against `edx-platform` to bump the version?
+- [ ] Create PR against `edx-platform` to bump the version
