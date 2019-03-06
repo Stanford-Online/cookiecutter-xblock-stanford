@@ -20,8 +20,9 @@
     "test": "tox"
   },
   "devDependencies": [
-    "csslint",
     "eslint",
+    "less",
+    "csslint"
   ],
   "keywords": [
     "stanford",
