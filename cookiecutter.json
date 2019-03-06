@@ -1,6 +1,6 @@
 {
-    "class_name": "ImageModal",
-    "short_name": "imagemodal",
+    "class_name": "FoobarXblock",
+    "short_name": "foobarxblock",
     "author_github": "Stanford-Online",
     "author_email": "test@example.com",
     "description": "A quick little sentence about the XBlock"
