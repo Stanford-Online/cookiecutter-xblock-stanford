@@ -36,13 +36,13 @@ class {{cookiecutter.class_name}}(XBlock):
         The primary view of the {{cookiecutter.class_name}}, shown to students
         when viewing courses.
         """
-        # pylint: enable=unused-argument
         html = resource_string("public/{{cookiecutter.short_name|lower}}.html")
         frag = Fragment(html.format(self=self))
         frag.add_css(resource_string("public/{{cookiecutter.short_name|lower}}.css"))
         frag.add_javascript(resource_string("public/{{cookiecutter.short_name|lower}}.js"))
         frag.initialize_js('{{cookiecutter.class_name}}')
         return frag
+    # pylint: enable=unused-argument
 
     # TODO: change this handler to perform your own actions.  You may need more
     # than one handler, or you may not need any handlers at all.
@@ -52,11 +52,11 @@ class {{cookiecutter.class_name}}(XBlock):
         """
         An example handler, which increments the data.
         """
-        # pylint: enable=unused-argument
         # Just to show data coming in...
         assert data['hello'] == 'world'
         self.count += 1
         return {"count": self.count}
+    # pylint: enable=unused-argument
 
     # TODO: change this to create the scenarios you'd like to see in the
     # workbench while developing your XBlock.
@@ -75,3 +75,4 @@ class {{cookiecutter.class_name}}(XBlock):
                 </vertical_demo>
              """),
         ]
+# pylint: enable=too-many-ancestors
