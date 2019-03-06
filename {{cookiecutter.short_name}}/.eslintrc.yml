@@ -54,7 +54,7 @@ rules:
     - declaration
   function-paren-newline:
     - error
-    - consistent
+    - never
   generator-star-spacing: error
   guard-for-in: error
   handle-callback-err:
@@ -189,6 +189,8 @@ rules:
   no-useless-escape: error
   no-useless-rename: error
   no-useless-return: error
+  no-warning-comments:
+    - 2
   no-whitespace-before-property: error
   no-with: error
   no-var: 0
@@ -249,7 +251,7 @@ rules:
   space-before-blocks: error
   space-before-function-paren:
     - error
-    - never
+    - always
   space-in-parens: error
   space-infix-ops: error
   space-unary-ops:
