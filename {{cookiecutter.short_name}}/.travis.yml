@@ -28,7 +28,7 @@ install:
   - "make requirements"
   - "pip install coveralls"
 script:
-  - tox
+  - make test
 branches:
     only:
       - master
