@@ -1,0 +1,22 @@
+addons:
+  apt:
+    packages:
+    - nodejs
+language: python
+sudo: false
+python:
+  - "2.7"
+before_install:
+  - "pip install -U pip"
+  - export BOTO_CONFIG=/dev/null
+cache:
+    directories:
+        - $HOME/.cache/pip
+install:
+  - pip install cookiecutter
+  - pip install tox
+script:
+  - make
+branches:
+    only:
+      - master
