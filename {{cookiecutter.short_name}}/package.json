@@ -17,7 +17,7 @@
     "url": "https://github.com/{{cookiecutter.author_github}}/xblock-{{cookiecutter.short_name}}/issues"
   },
   "scripts": {
-    "test": "tox"
+    "test": "make test"
   },
   "devDependencies": [
     "eslint",
