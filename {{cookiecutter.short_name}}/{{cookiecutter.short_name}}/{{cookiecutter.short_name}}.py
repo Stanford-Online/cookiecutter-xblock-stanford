@@ -8,6 +8,13 @@ from xblock.fields import Integer, Scope
 from xblock.fragment import Fragment
 
 
+def resource_string(path):
+    """Handy helper for getting resources from our kit."""
+    data = pkg_resources.resource_string(__name__, path)
+    return data.decode("utf8")
+
+
+# pylint: disable=too-many-ancestors
 class {{cookiecutter.class_name}}(XBlock):
     """
     TODO: Document what your XBlock does.
@@ -22,31 +29,30 @@ class {{cookiecutter.class_name}}(XBlock):
         help="A simple counter, to show something happening",
     )
 
-    def resource_string(self, path):
-        """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode("utf8")
-
     # TODO: change this view to display your data your own way.
+    # pylint: disable=unused-argument
     def student_view(self, context=None):
         """
         The primary view of the {{cookiecutter.class_name}}, shown to students
         when viewing courses.
         """
-        html = self.resource_string("public/{{cookiecutter.short_name|lower}}.html")
+        # pylint: enable=unused-argument
+        html = resource_string("public/{{cookiecutter.short_name|lower}}.html")
         frag = Fragment(html.format(self=self))
-        frag.add_css(self.resource_string("public/{{cookiecutter.short_name|lower}}.css"))
-        frag.add_javascript(self.resource_string("public/{{cookiecutter.short_name|lower}}.js"))
+        frag.add_css(resource_string("public/{{cookiecutter.short_name|lower}}.css"))
+        frag.add_javascript(resource_string("public/{{cookiecutter.short_name|lower}}.js"))
         frag.initialize_js('{{cookiecutter.class_name}}')
         return frag
 
     # TODO: change this handler to perform your own actions.  You may need more
     # than one handler, or you may not need any handlers at all.
+    # pylint: disable=unused-argument
     @XBlock.json_handler
     def increment_count(self, data, suffix=''):
         """
         An example handler, which increments the data.
         """
+        # pylint: enable=unused-argument
         # Just to show data coming in...
         assert data['hello'] == 'world'
         self.count += 1
