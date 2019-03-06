@@ -40,7 +40,7 @@ run:  # Run the workbench server w/ this XBlock installed
 
 .PHONY: test
 test: requirements  ## Run all quality checks and unit tests
-	tox
+	tox --parallel all
 
 .PHONY: vagrant_clean
 vagrant_clean: vagrant_halt clean  ## Remove build artifacts (and destroy vagrant VM)
