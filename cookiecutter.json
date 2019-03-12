@@ -1,6 +1,11 @@
 {
-    "class_name": "FoobarXblock",
-    "short_name": "foobarxblock",
+    "project_title": "Foobar XBlock",
+    "project_name": "{{cookiecutter.project_title}}",
+    "class_name": "{{ cookiecutter.project_name|lower|replace('xblock', '')|replace('-', ' ')|replace('_', ' ')|title|replace(' ', '') }}",
+    "class_name_xblock": "{{ cookiecutter.class_name }}XBlock",
+    "short_name": "{{ cookiecutter.project_name|lower|replace('xblock', '')|replace('-', ' ')|replace('_', ' ')|trim|replace(' ', '_') }}",
+    "short_name_xblock": "xblock_{{ cookiecutter.short_name }}",
+    "project_name": "{{ cookiecutter.xblock|replace('_', '-') }}",
     "author_github": "Stanford-Online",
     "author_email": "test@example.com",
     "description": "A quick little sentence about the XBlock"
